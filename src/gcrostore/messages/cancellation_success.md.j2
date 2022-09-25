@@ -1,0 +1,13 @@
+{% extends "base.md.j2" %}
+
+{% block body %}
+以下の商品の出品を取り消しました。
+
+{% if crostore_id %}
+CrostoreID: {{ crostore_id }}<br>
+{% endif %}
+プラットフォーム名: {{ platform_name }} <br>
+商品ID: {{ item_id }} <br>
+商品ページ: {{ selling_page_url }} <br>
+
+{% endblock %}
