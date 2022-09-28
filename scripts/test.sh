@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
-set -e
+set -euC
+set -o pipefail
 set -x
 
 # pytest --doctest-modules src  # Uncomment when to run doctests
