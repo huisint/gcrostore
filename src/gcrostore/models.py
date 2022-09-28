@@ -37,12 +37,7 @@ class Google(pydantic.BaseModel):
 
     @pydantic.validator("creds")
     def creds_is_valid(cls, v: t.Any) -> dict[str, t.Any]:
-        scopes = [  # TODO: Fix hard coding
-            "https://www.googleapis.com/auth/gmail.labels",
-            "https://www.googleapis.com/auth/gmail.modify",
-            "https://www.googleapis.com/auth/drive.file",
-        ]
-        creds = credentials.Credentials.from_authorized_user_info(v, scopes)
+        creds = credentials.Credentials.from_authorized_user_info(v, config.scopes)
         if not creds.valid and creds.refresh_token:
             creds.refresh(transport.Request())
         return dict(creds)

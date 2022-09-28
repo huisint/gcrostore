@@ -19,3 +19,10 @@ platforms: list[crostore.AbstractPlatform] = [
     crostore.platforms.mercari.Platform(),
     crostore.platforms.yahoo_auction.Platform(),
 ]
+
+# Google credentials scopes
+scopes = [
+    "https://www.googleapis.com/auth/gmail.labels",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/drive.file",
+]
