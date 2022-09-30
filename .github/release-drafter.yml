@@ -44,9 +44,12 @@ autolabeler:
   - label: bug
     branch:
       - /^fix[/-].+/
+      - /^bug[/-].+/
+      - /^bugfix[/-].+/
   - label: chore
     branch:
       - /^chore[/-].+/
+      - /^internal[/-].+/
   - label: refactor
     branch:
       - /ref(actor)?[/-].+/
