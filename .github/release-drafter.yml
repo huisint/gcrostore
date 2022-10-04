@@ -50,6 +50,7 @@ autolabeler:
     branch:
       - /^chore[/-].+/
       - /^internal[/-].+/
+      - /pre-commit-ci-update-config/
   - label: refactor
     branch:
       - /ref(actor)?[/-].+/
