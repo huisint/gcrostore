@@ -14,7 +14,7 @@ CLIENT_CONFIG = {
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_secret": os.environ.get("CLIENT_SECRET", ""),
-        "redirect_uris": ["http://localhost"],
+        "redirect_uris": ["http://127.0.0.1"],
     }
 }
 
@@ -23,7 +23,7 @@ def main() -> None:
     oauth_flow = flow.InstalledAppFlow.from_client_config(
         CLIENT_CONFIG, scopes=gcrostore.config.scopes
     )
-    creds = oauth_flow.run_console()
+    creds = oauth_flow.run_local_server()
     print(creds.to_json())
 
 
