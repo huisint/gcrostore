@@ -41,4 +41,4 @@ crostore_logger.addHandler(console_handler)
 
 # Endpoints
 api_version = "v" + __version__.split(".")[0]
-from . import cancel, status
+from . import cancel, request
