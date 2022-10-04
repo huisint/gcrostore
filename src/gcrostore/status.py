@@ -8,15 +8,18 @@ PlatformCode = enum.Enum(  # type: ignore
 )  # TODO: Is there a more smart way to create Enum from iterables?
 
 
-@app.post(f"/{api_version}/status/login")
-def check_login_status(
+@app.post(f"/{api_version}/request/login")  # TODO: Add tags
+def request_login(
     user: models.User,
-    platform_code: PlatformCode,
     selenium: models.Selenium,
-) -> bool:
-    platform = code_to_platform[platform_code.value]
-    with selenium.driver() as driver:
-        if not platform.is_accessible_to_userpage(driver):
-            mail.request_relogin(user, platform, selenium)
-            return False
-    return True
+    platform_code: PlatformCode | None = None,
+) -> None:
+    platforms = (
+        config.platforms.copy()
+        if platform_code is None
+        else [code_to_platform[platform_code.value]]
+    )
+    for platform in platforms:
+        with selenium.driver() as driver:
+            if not platform.is_accessible_to_userpage(driver):
+                mail.request_relogin(user, platform, selenium)
