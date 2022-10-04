@@ -42,9 +42,9 @@ Still under development.
 
 Cancels all the sold items according to messages in mailbox of Gmail.
 
-### /status/login
+### /request/login
 
-Checks login status of the browser for Selenium.
+Sends a message of requesting login for the platforms to the user.
 
 ## License
 
