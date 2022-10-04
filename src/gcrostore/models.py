@@ -3,7 +3,7 @@ import typing as t
 from collections import abc
 
 import pydantic
-from google.auth import transport
+from google.auth.transport import requests
 from google.oauth2 import credentials
 from selenium import webdriver
 
@@ -39,5 +39,5 @@ class Google(pydantic.BaseModel):
     def creds_is_valid(cls, v: t.Any) -> dict[str, t.Any]:
         creds = credentials.Credentials.from_authorized_user_info(v, config.scopes)
         if not creds.valid and creds.refresh_token:
-            creds.refresh(transport.Request())
+            creds.refresh(requests.Request())
         return dict(creds)
