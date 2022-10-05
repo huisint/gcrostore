@@ -1,3 +1,4 @@
+import datetime
 import typing as t
 from unittest import mock
 
@@ -43,3 +44,45 @@ def describe_selenium() -> None:
         remote_mock.return_value.implicitly_wait.assert_called_once_with(
             config.SELENIUM_IMPLICITLY_WAIT
         )
+
+
+def _format_expiry(dt: datetime.datetime) -> str:
+    return dt.isoformat(timespec="seconds") + "Z"
+
+
+def describe_google() -> None:
+    @pytest.fixture()
+    def creds() -> dict[str, t.Any]:
+        fake_token = "fake_token"
+        fake_refresh_token = "fake_refresh_token"
+        fake_client_id = "fake_client_id"
+        fake_client_secret = "fake_client_secret"
+        expiry = datetime.datetime.now() + datetime.timedelta(days=1)
+        creds = {
+            "token": fake_token,
+            "refresh_token": fake_refresh_token,
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "client_id": fake_client_id,
+            "client_secret": fake_client_secret,
+            "scopes": config.scopes,
+            "expiry": _format_expiry(expiry),
+        }
+        return creds
+
+    @pytest.fixture()
+    def sheet_id() -> str:
+        return "sheet_id"
+
+    def test_creds_valid(creds: dict[str, t.Any], sheet_id: str) -> None:
+        google = models.Google(creds=creds, sheet_id=sheet_id)
+        assert google.creds == creds
+
+    @mock.patch("google.oauth2.credentials.Credentials.refresh")
+    def test_creds_that_requires_refresh(
+        refresh_mock: mock.Mock, creds: dict[str, t.Any], sheet_id: str
+    ) -> None:
+        creds["expiry"] = _format_expiry(
+            datetime.datetime.now() - datetime.timedelta(days=1)
+        )
+        models.Google(creds=creds, sheet_id=sheet_id)
+        refresh_mock.assert_called_once()
