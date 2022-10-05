@@ -10,18 +10,6 @@ app = fastapi.FastAPI(
     version=__version__,
 )
 
-# Middlewares
-import os
-
-import bugsnag
-import bugsnag.asgi
-
-bugsnag.configure(  # type: ignore[no-untyped-call]
-    api_key=config.BUGSNAG_API_KEY,
-    project_root=os.path.dirname(__file__),
-)
-app.add_middleware(bugsnag.asgi.BugsnagMiddleware)
-
 
 # Logging
 import logging
