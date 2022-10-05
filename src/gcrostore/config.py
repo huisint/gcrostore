@@ -8,9 +8,6 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", "25"))
 """The port number for SMTP."""
 SMTP_FROM = os.environ.get("SMTP_FROM", "")
 """FROM of messages that the app sends."""
-BUGSNAG_API_KEY = os.environ.get("BUGSNAG_API_KEY", "")
-"""The API key for Bugsnag."""
-
 
 # Crostore supported platforms
 platforms: list[crostore.AbstractPlatform] = [
