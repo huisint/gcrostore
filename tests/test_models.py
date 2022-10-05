@@ -6,7 +6,7 @@ import pytest
 from crostore import config as crostore_config
 from selenium import webdriver
 
-from gcrostore import models
+from gcrostore import config, models
 from tests import FixtureRequest
 
 
