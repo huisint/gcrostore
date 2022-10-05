@@ -42,7 +42,7 @@ def describe_selenium() -> None:
             selenium.url, desired_capabilities=selenium.desired_capabilities
         )
         remote_mock.return_value.implicitly_wait.assert_called_once_with(
-            config.SELENIUM_IMPLICITLY_WAIT
+            config.SELENIUM_WAIT
         )
 
 

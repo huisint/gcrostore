@@ -2,7 +2,7 @@ import os
 
 import crostore
 
-SELENIUM_IMPLICITLY_WAIT = int(os.environ.get("SELENIUM_IMPLICITLY_WAIT", "10"))
+SELENIUM_WAIT = int(os.environ.get("SELENIUM_WAIT", "10"))
 """Time in second to wait for Selenium."""
 SMTP_HOST = os.environ.get("SMTP_HOST", "localhost")
 """The hostname for SMTP."""
