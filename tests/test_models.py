@@ -3,6 +3,7 @@ import typing as t
 from unittest import mock
 
 import pytest
+from crostore import config as crostore_config
 from selenium import webdriver
 
 from gcrostore import config, models
@@ -42,7 +43,7 @@ def describe_selenium() -> None:
             selenium.url, desired_capabilities=selenium.desired_capabilities
         )
         remote_mock.return_value.implicitly_wait.assert_called_once_with(
-            config.SELENIUM_IMPLICITLY_WAIT
+            crostore_config.SELENIUM_WAIT
         )
 
 

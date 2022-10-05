@@ -4,6 +4,7 @@ import typing as t
 from collections import abc
 
 import pydantic
+from crostore import config as crostore_config
 from google.auth.transport import requests
 from google.oauth2 import credentials
 from selenium import webdriver
@@ -25,7 +26,7 @@ class Selenium(pydantic.BaseModel):
         driver = webdriver.Remote(
             self.url, desired_capabilities=self.desired_capabilities
         )
-        driver.implicitly_wait(config.SELENIUM_IMPLICITLY_WAIT)
+        driver.implicitly_wait(crostore_config.SELENIUM_WAIT)
         try:
             yield driver
         finally:
