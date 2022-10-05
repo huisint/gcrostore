@@ -37,10 +37,8 @@ class Google(pydantic.BaseModel):
     sheet_id: str
 
     @pydantic.validator("creds")
-    def creds_is_valid(cls, v: t.Any) -> dict[str, t.Any]:
+    def creds_is_valid(cls, v: t.Any) -> t.Any:
         creds = credentials.Credentials.from_authorized_user_info(v, config.scopes)
         if not creds.valid and creds.refresh_token:
             creds.refresh(requests.Request())
-        refreshed_creds = json.loads(creds.to_json())
-        assert isinstance(refreshed_creds, dict)
-        return {str(key): val for (key, val) in refreshed_creds.items()}
+        return json.loads(creds.to_json())
