@@ -2,8 +2,6 @@ import os
 
 import crostore
 
-SELENIUM_WAIT = int(os.environ.get("SELENIUM_WAIT", "10"))
-"""Time in second to wait for Selenium."""
 SMTP_HOST = os.environ.get("SMTP_HOST", "localhost")
 """The hostname for SMTP."""
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "25"))
@@ -26,6 +24,3 @@ scopes = [
     "https://www.googleapis.com/auth/gmail.modify",
     "https://www.googleapis.com/auth/spreadsheets",
 ]
-
-# Crostore configuration
-os.environ["CROSTORE_SELENIUM_WAIT"] = str(SELENIUM_WAIT)
