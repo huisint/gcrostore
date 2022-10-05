@@ -1,4 +1,5 @@
 import contextlib
+import json
 import typing as t
 from collections import abc
 
@@ -36,8 +37,8 @@ class Google(pydantic.BaseModel):
     sheet_id: str
 
     @pydantic.validator("creds")
-    def creds_is_valid(cls, v: t.Any) -> dict[str, t.Any]:
+    def creds_is_valid(cls, v: t.Any) -> t.Any:
         creds = credentials.Credentials.from_authorized_user_info(v, config.scopes)
         if not creds.valid and creds.refresh_token:
             creds.refresh(requests.Request())
-        return dict(creds)
+        return json.loads(creds.to_json())
