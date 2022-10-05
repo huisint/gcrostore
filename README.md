@@ -7,7 +7,7 @@
 - [ASGI](#asgi)
 - [API endpoints](#api-endpoints)
   - [/cancel/all](#cancelall)
-  - [/status/login](#statuslogin)
+  - [/request/login](#requestlogin)
 - [License](#license)
 
 ## System requirements
@@ -16,7 +16,7 @@
 - Credentials for Google API of the following scopes
   - https://www.googleapis.com/auth/gmail.labels
   - https://www.googleapis.com/auth/gmail.modify
-  - https://www.googleapis.com/auth/drive.file
+  - https://www.googleapis.com/auth/spreadsheets
 - [Selenium] server
 
 ## Installation
@@ -30,6 +30,7 @@ pip install git+https://github.com/ecoreuse/gcrostore
 The [ASGI] is `gcrostore:app`.
 
 Runnable with [uvicorn].
+
 ```sh
 uvicorn gcrostore:app
 ```
@@ -55,6 +56,6 @@ Copyright (c) 2022 Shuhei Nitta
 [crostore]: https://github.com/huisint/crostore
 [gmail]: https://developers.google.com/gmail/api
 [google sheets]: https://developers.google.com/sheets/api
-[Selenium]: https://www.selenium.dev/documentation/
+[selenium]: https://www.selenium.dev/documentation/
 [asgi]: https://asgi.readthedocs.io/en/latest/
 [uvicorn]: https://www.uvicorn.org/
