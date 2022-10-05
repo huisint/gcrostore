@@ -26,3 +26,6 @@ scopes = [
     "https://www.googleapis.com/auth/gmail.modify",
     "https://www.googleapis.com/auth/spreadsheets",
 ]
+
+# Crostore configuration
+os.environ["CROSTORE_SELENIUM_WAIT"] = str(SELENIUM_WAIT)
