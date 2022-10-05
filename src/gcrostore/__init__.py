@@ -26,16 +26,10 @@ app.add_middleware(bugsnag.asgi.BugsnagMiddleware)
 # Logging
 import logging
 
-import bugsnag.handlers
-
-logger = logging.getLogger(__name__)
-bugsnag_handler = bugsnag.handlers.BugsnagHandler()  # type: ignore[no-untyped-call]
 console_handler = logging.StreamHandler()
-logger.addHandler(bugsnag_handler)
+logger = logging.getLogger(__name__)
 logger.addHandler(console_handler)
-
 crostore_logger = logging.getLogger("crostore")
-crostore_logger.addHandler(bugsnag_handler)
 crostore_logger.addHandler(console_handler)
 
 
