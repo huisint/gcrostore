@@ -35,7 +35,7 @@ test = [
   "mypy~=0.982",
   "flake8~=5.0.4",
   "isort~=5.10.1",
-  "black~=22.8.0",
+  "black~=22.10.0",
   "google-api-python-client-stubs~=1.11.0",
   "types-Markdown~=3.4.2",
 ]
