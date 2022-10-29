@@ -1,3 +1,4 @@
+---
 name: Docker build ans push
 
 on:
@@ -39,5 +40,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.DOCKER_HUB_REPOSITORY }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_HUB_REPOSITORY }}:buildcache,mode=max
+          cache-from: >
+            type=registry,
+            ref=${{ env.DOCKER_HUB_REPOSITORY }}:buildcache
+          cache-to: >
+            type=registry,
+            ref=${{ env.DOCKER_HUB_REPOSITORY }}:buildcache,
+            mode=max
