@@ -1,5 +1,15 @@
 # Gcrostore: Crostore with Google system <!-- omit in toc -->
 
+<p align="center">
+<a href="https://github.com/huisint/gcrostore/actions?query=workflow%3ATest" target="_blank">
+    <img src="https://github.com/huisint/gcrostore/workflows/Test/badge.svg" alt="Test">
+</a>
+<a href="https://codecov.io/gh/huisint/gcrostore" target="_blank">
+    <img src="https://img.shields.io/codecov/c/github/huisint/gcrostore?color=%2334D058" alt="Coverage">
+</a>
+</p>
+
+
 **_Gcrostore_** is a web application of [Crostore] integrated with [Gmail] and [Google Sheets].
 
 - [System requirements](#system-requirements)
