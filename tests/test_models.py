@@ -4,6 +4,7 @@ from unittest import mock
 
 import pydantic
 import pytest
+import pytest_mock
 from crostore import config as crostore_config
 from selenium import webdriver
 
@@ -81,10 +82,12 @@ def describe_google() -> None:
         google = models.Google(creds=creds, sheet_id=sheet_id)
         assert google.creds == creds
 
-    @mock.patch("google.oauth2.credentials.Credentials.refresh")
     def test_creds_that_requires_refresh(
-        refresh_mock: mock.Mock, creds: dict[str, t.Any], sheet_id: str
+        creds: dict[str, t.Any],
+        sheet_id: str,
+        mocker: pytest_mock.MockerFixture,
     ) -> None:
+        refresh_mock = mocker.patch("google.oauth2.credentials.Credentials.refresh")
         creds["expiry"] = _format_expiry(
             datetime.datetime.now() - datetime.timedelta(days=1)
         )

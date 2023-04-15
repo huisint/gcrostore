@@ -1,14 +1,12 @@
-from unittest import mock
-
 import crostore
+import pytest_mock
 
 from gcrostore import cancel, config
 
 
-@mock.patch("crostore.iter_items_to_cancel")
-def test_iter_items_to_cancel(iter_items_to_cancel_mock: mock.Mock) -> None:
-    items = [mock.Mock(spec_set=crostore.AbstractItem)]
-    iter_items_to_cancel_mock.return_value = items
-    ms = mock.Mock(spec_set=crostore.AbstractMailSystem)
-    ds = mock.Mock(spec_set=crostore.AbstractDataSystem)
+def test_iter_items_to_cancel(mocker: pytest_mock.MockerFixture) -> None:
+    items = [mocker.Mock(spec_set=crostore.AbstractItem)]
+    mocker.patch("crostore.iter_items_to_cancel", return_value=items)
+    ms = mocker.Mock(spec_set=crostore.AbstractMailSystem)
+    ds = mocker.Mock(spec_set=crostore.AbstractDataSystem)
     assert list(cancel.iter_items_to_cancel(ms, ds)) == items * len(config.platforms)
