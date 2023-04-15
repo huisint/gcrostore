@@ -1,0 +1,27 @@
+---
+services:
+  dev:
+    image: mcr.microsoft.com/vscode/devcontainers/python:0-3.11-bullseye
+    environment:
+      SELENIUM_URL: http://selenium:4444/wd/hub
+      SMTP_HOST: postfix
+      SMTP_PORT: 25
+      SMTP_FROM: Crostore
+      CLIENT_ID: $GOOGLE_CLIENT_ID
+      CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
+    volumes:
+      - ..:/workspaces:cache
+    command: /bin/sh -c "while sleep 1000; do :; done"
+  selenium:
+    image: selenium/standalone-chrome:111.0
+    ports:
+      - 7900:7900
+    shm_size: 2g
+  postfix:
+    image: juanluisbaptiste/postfix
+    environment:
+      SERVER_HOSTNAME: crostore.com
+      SMTP_PORT: 587
+      SMTP_SERVER: $SMTP_SERVER
+      SMTP_USERNAME: $SMTP_USERNAME
+      SMTP_PASSWORD: $SMTP_PASSWORD

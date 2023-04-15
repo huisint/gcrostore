@@ -1,8 +1,8 @@
-from unittest import mock
-
 import crostore
 import jinja2
+import pydantic
 import pytest
+import pytest_mock
 
 from gcrostore import config, mail, models
 from tests import FixtureRequest
@@ -24,12 +24,11 @@ def test_get_template(name: str) -> None:
 @pytest.mark.parametrize("title", ["Title"])
 @pytest.mark.parametrize("description", ["Markdown template test"])
 @pytest.mark.parametrize("items", [[f"item{i}" for i in range(3)]])
-@mock.patch("gcrostore.mail.get_template")
 def test_render_markdown_template(
-    get_template_mock: mock.Mock,
     title: str,
     description: str,
     items: list[str],
+    mocker: pytest_mock.MockerFixture,
 ) -> None:
     markdown_text = (
         "## {{ title }}\n"
@@ -39,7 +38,7 @@ def test_render_markdown_template(
         "{% endfor %}\n"
     )
     template = jinja2.Template(markdown_text)
-    get_template_mock.return_value = template
+    mocker.patch("gcrostore.mail.get_template", return_value=template)
     html_text = mail.render_markdown_template(
         "template_name",
         {"title": title},
@@ -58,7 +57,7 @@ def test_render_markdown_template(
 @pytest.fixture(params=["foo", "bar"])
 def user(request: FixtureRequest[str]) -> models.User:
     name = request.param
-    return models.User(name=name, email=f"{name}@example.com")
+    return models.User(name=name, email=pydantic.EmailStr(f"{name}@example.com"))
 
 
 @pytest.fixture(params=config.platforms)
@@ -67,7 +66,7 @@ def item(request: FixtureRequest[crostore.AbstractPlatform]) -> crostore.Abstrac
 
 
 @pytest.fixture(params=["http://example.com:4444/wd/hub"])
-def selenium(request: FixtureRequest[str]) -> models.Selenium:
+def selenium(request: FixtureRequest[pydantic.HttpUrl]) -> models.Selenium:
     return models.Selenium(url=request.param, desired_capabilities=dict())
 
 
