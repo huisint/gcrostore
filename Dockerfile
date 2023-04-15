@@ -1,9 +1,9 @@
-FROM python:3.10-bullseye as builder
+FROM python:3.11-bullseye as builder
 WORKDIR /work
 COPY . /work
 RUN pip install --no-cache-dir . uvicorn==0.21.1
 
-FROM python:3.10-slim-bullseye as runner
+FROM python:3.11-slim-bullseye as runner
 LABEL org.opencontainers.image.title="Gcrostore"
 LABEL org.opencontainers.image.description="A web application of Crostore with Gmail and Google Sheets integrated"
 LABEL org.opencontainers.image.licenses="MIT"
