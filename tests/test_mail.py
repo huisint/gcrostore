@@ -2,6 +2,7 @@ from unittest import mock
 
 import crostore
 import jinja2
+import pydantic
 import pytest
 
 from gcrostore import config, mail, models
@@ -58,7 +59,7 @@ def test_render_markdown_template(
 @pytest.fixture(params=["foo", "bar"])
 def user(request: FixtureRequest[str]) -> models.User:
     name = request.param
-    return models.User(name=name, email=f"{name}@example.com")
+    return models.User(name=name, email=pydantic.EmailStr(f"{name}@example.com"))
 
 
 @pytest.fixture(params=config.platforms)
@@ -67,7 +68,7 @@ def item(request: FixtureRequest[crostore.AbstractPlatform]) -> crostore.Abstrac
 
 
 @pytest.fixture(params=["http://example.com:4444/wd/hub"])
-def selenium(request: FixtureRequest[str]) -> models.Selenium:
+def selenium(request: FixtureRequest[pydantic.HttpUrl]) -> models.Selenium:
     return models.Selenium(url=request.param, desired_capabilities=dict())
 
 

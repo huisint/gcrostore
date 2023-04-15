@@ -2,6 +2,7 @@ import datetime
 import typing as t
 from unittest import mock
 
+import pydantic
 import pytest
 from crostore import config as crostore_config
 from selenium import webdriver
@@ -23,14 +24,16 @@ def describe_selenium() -> None:
             case "chrome":
                 return webdriver.ChromeOptions().to_capabilities()
             case "firefox":
-                return webdriver.FirefoxOptions().to_capabilities()  # type: ignore[no-untyped-call]
+                return webdriver.FirefoxOptions().to_capabilities()
             case "ie":
-                return webdriver.IeOptions().to_capabilities()  # type: ignore[no-untyped-call]
+                return webdriver.IeOptions().to_capabilities()
             case _:
                 raise ValueError(f"Invalid request param: {request.param}")
 
     @pytest.fixture()
-    def selenium(url: str, desired_capabilities: dict[str, t.Any]) -> models.Selenium:
+    def selenium(
+        url: pydantic.HttpUrl, desired_capabilities: dict[str, t.Any]
+    ) -> models.Selenium:
         return models.Selenium(url=url, desired_capabilities=desired_capabilities)
 
     @mock.patch("selenium.webdriver.Remote", spec_set=webdriver.Remote)
