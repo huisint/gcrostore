@@ -14,7 +14,7 @@ authors = [
 keywords = []
 classifiers = []
 dependencies = [
-  "crostore @ git+https://github.com/huisint/crostore@master",
+  "crostore @ git+https://github.com/huisint/crostore@v0.0.1",
   "google-api-python-client~=2.89.0",
   "fastapi~=0.95.1",
   "pydantic[email]~=1.10.7",
