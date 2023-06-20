@@ -14,8 +14,6 @@ services:
     command: /bin/sh -c "while sleep 1000; do :; done"
   selenium:
     image: selenium/standalone-chrome:111.0
-    ports:
-      - 7900:7900
     shm_size: 2g
   postfix:
     image: juanluisbaptiste/postfix
