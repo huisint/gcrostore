@@ -1,7 +1,7 @@
 FROM python:3.11-bullseye as builder
 WORKDIR /work
 COPY . /work
-RUN pip install --no-cache-dir . uvicorn==0.21.1
+RUN pip install --no-cache-dir . "uvicorn[standard]==0.21.1"
 
 FROM python:3.11-slim-bullseye as runner
 LABEL org.opencontainers.image.title="Gcrostore"
