@@ -44,7 +44,8 @@ def describe_selenium() -> None:
             remote_mock.return_value.quit.assert_not_called()
         remote_mock.return_value.quit.assert_called_once_with()
         remote_mock.assert_called_once_with(
-            selenium.url, desired_capabilities=selenium.desired_capabilities
+            command_executor=selenium.url,
+            options=selenium.options,
         )
         remote_mock.return_value.implicitly_wait.assert_called_once_with(
             crostore_config.SELENIUM_WAIT

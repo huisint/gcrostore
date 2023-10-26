@@ -57,7 +57,7 @@ def test_render_markdown_template(
 @pytest.fixture(params=["foo", "bar"])
 def user(request: FixtureRequest[str]) -> models.User:
     name = request.param
-    return models.User(name=name, email=pydantic.EmailStr(f"{name}@example.com"))
+    return models.User(name=name, email=f"{name}@example.com")
 
 
 @pytest.fixture(params=config.platforms)
