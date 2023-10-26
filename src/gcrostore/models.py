@@ -8,6 +8,7 @@ from crostore import config as crostore_config
 from google.auth.transport import requests
 from google.oauth2 import credentials
 from selenium import webdriver
+from selenium.webdriver.common import options
 
 from gcrostore import config
 
@@ -21,10 +22,20 @@ class Selenium(pydantic.BaseModel):
     url: pydantic.HttpUrl
     desired_capabilities: dict[str, t.Any]
 
+    def model_post_init(self, __context: t.Any) -> None:
+        self._options = options.ArgOptions()
+        for key, value in self.desired_capabilities.items():
+            self._options.set_capability(key, value)
+
+    @property
+    def options(self) -> options.ArgOptions:
+        return self._options
+
     @contextlib.contextmanager
     def driver(self) -> abc.Iterator[webdriver.Remote]:
         driver = webdriver.Remote(
-            self.url, desired_capabilities=self.desired_capabilities
+            command_executor=self.url,
+            options=self.options,
         )
         driver.implicitly_wait(crostore_config.SELENIUM_WAIT)
         try:
