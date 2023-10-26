@@ -1,7 +1,7 @@
 ---
 services:
   dev:
-    image: mcr.microsoft.com/vscode/devcontainers/python:0-3.11-bullseye
+    image: mcr.microsoft.com/vscode/devcontainers/python:3.11
     environment:
       SELENIUM_URL: http://selenium:4444/wd/hub
       SMTP_HOST: postfix
@@ -16,7 +16,7 @@ services:
     image: selenium/standalone-chrome:111.0
     shm_size: 2g
   postfix:
-    image: juanluisbaptiste/postfix
+    image: juanluisbaptiste/postfix:1.7
     environment:
       SERVER_HOSTNAME: crostore.com
       SMTP_PORT: 587
