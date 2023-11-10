@@ -26,7 +26,7 @@ def _(platform: crostore.platforms.mercari.Platform) -> str:
 
 @get_sold_mail_query.register
 def _(platform: crostore.platforms.yahoo_auction.Platform) -> str:
-    return f"from:({platform.email})" + ' AND {subject:("ヤフオク! - 終了（落札者あり）")}'
+    return f"from:({platform.email})" + ' AND {subject:("Yahoo!オークション - 終了（落札者あり）")}'
 
 
 @dataclasses.dataclass(frozen=True)

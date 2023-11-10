@@ -4,7 +4,7 @@
   "service": "dev",
   "workspaceFolder": "/workspaces",
   "features": {
-    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+    "ghcr.io/devcontainers-contrib/features/apt-packages:1": {
       "packages": "bash-completion"
     },
     "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
@@ -13,7 +13,6 @@
   },
   "customizations": {
     "vscode": {
-      "settings": {},
       "extensions": [
         "esbenp.prettier-vscode",
         "ninoseki.vscode-pylens",
@@ -38,6 +37,5 @@
     "install pip-completion": "echo 'source <(pip completion --bash)' >> ~/.bashrc",
     "install the project": "pip install --user -e '.[test,stub]'",
     "install optional dependencies": "pip install --user -r .devcontainer/requirements.txt"
-  },
-  "remoteUser": "vscode"
+  }
 }
