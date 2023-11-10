@@ -48,7 +48,7 @@ class Google(pydantic.BaseModel):
     creds: dict[str, t.Any]
     sheet_id: str
 
-    @pydantic.validator("creds")
+    @pydantic.field_validator("creds")
     def creds_is_valid(cls, v: t.Any) -> t.Any:
         creds = credentials.Credentials.from_authorized_user_info(v, config.scopes)
         if not creds.valid and creds.refresh_token:
