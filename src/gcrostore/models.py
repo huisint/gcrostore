@@ -1,7 +1,5 @@
-import contextlib
 import json
 import typing as t
-from collections import abc
 
 import pydantic
 from crostore import config as crostore_config
@@ -31,17 +29,13 @@ class Selenium(pydantic.BaseModel):
     def options(self) -> options.ArgOptions:
         return self._options
 
-    @contextlib.contextmanager
-    def driver(self) -> abc.Iterator[webdriver.Remote]:
+    def driver(self) -> webdriver.Remote:
         driver = webdriver.Remote(
-            command_executor=self.url,
+            command_executor=str(self.url),
             options=self.options,
         )
         driver.implicitly_wait(crostore_config.SELENIUM_WAIT)
-        try:
-            yield driver
-        finally:
-            driver.quit()
+        return driver
 
 
 class Google(pydantic.BaseModel):
