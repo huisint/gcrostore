@@ -1,7 +1,8 @@
 FROM python:3.11 as builder
 WORKDIR /work
 COPY . /work
-RUN pip install --no-cache-dir . "uvicorn[standard]==0.21.1"
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir .[uvicorn]
 
 FROM python:3.11-slim as runner
 LABEL org.opencontainers.image.title="Gcrostore"
