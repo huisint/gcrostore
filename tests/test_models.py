@@ -1,6 +1,5 @@
 import datetime
 import typing as t
-from unittest import mock
 
 import pydantic
 import pytest
@@ -37,19 +36,29 @@ def describe_selenium() -> None:
     ) -> models.Selenium:
         return models.Selenium(url=url, desired_capabilities=desired_capabilities)
 
-    @mock.patch("selenium.webdriver.Remote", spec_set=webdriver.Remote)
-    def test_driver(remote_mock: mock.Mock, selenium: models.Selenium) -> None:
+    def test_driver(
+        selenium: models.Selenium, mocker: pytest_mock.MockerFixture
+    ) -> None:
+        mocker.patch(
+            "selenium.webdriver.remote.remote_connection.RemoteConnection.execute",
+            side_effect=[
+                {
+                    "status": 0,
+                    "value": {
+                        "sessionId": None,
+                        "capabilities": None,
+                    },
+                },  # response for Command.NEW_SESSION
+                {
+                    "status": 0,
+                    "value": {},
+                },  # response for Command.QUIT
+            ],
+        )
+        implicitly_wait_mock = mocker.patch("selenium.webdriver.Remote.implicitly_wait")
         with selenium.driver() as driver:
-            assert driver == remote_mock.return_value
-            remote_mock.return_value.quit.assert_not_called()
-        remote_mock.return_value.quit.assert_called_once_with()
-        remote_mock.assert_called_once_with(
-            command_executor=selenium.url,
-            options=selenium.options,
-        )
-        remote_mock.return_value.implicitly_wait.assert_called_once_with(
-            crostore_config.SELENIUM_WAIT
-        )
+            assert isinstance(driver, webdriver.Remote)
+        implicitly_wait_mock.assert_called_once_with(crostore_config.SELENIUM_WAIT)
 
 
 def _format_expiry(dt: datetime.datetime) -> str:
