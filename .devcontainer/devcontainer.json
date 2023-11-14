@@ -1,7 +1,7 @@
 {
   "name": "Crostore",
   "dockerComposeFile": "compose.yml",
-  "service": "dev",
+  "service": "main",
   "workspaceFolder": "/workspaces",
   "features": {
     "ghcr.io/devcontainers-contrib/features/apt-packages:1": {
@@ -15,13 +15,15 @@
     "vscode": {
       "extensions": [
         "esbenp.prettier-vscode",
-        "ninoseki.vscode-pylens",
+        "github.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
         "ms-azuretools.vscode-docker",
         "ms-python.black-formatter",
         "ms-python.flake8",
         "ms-python.isort",
         "ms-python.python",
         "ms-python.vscode-pylance",
+        "ninoseki.vscode-pylens",
         "redhat.vscode-yaml",
         "tamasfe.even-better-toml",
         "timonwong.shellcheck",
@@ -29,13 +31,9 @@
       ]
     }
   },
-  "onCreateCommand": {
-    "upgrade pip": "pip install -U pip"
-  },
   "postCreateCommand": {
     "install pre-commit": "pre-commit install",
     "install pip-completion": "echo 'source <(pip completion --bash)' >> ~/.bashrc",
-    "install the project": "pip install --user -e '.[test,stub]'",
-    "install optional dependencies": "pip install --user -r .devcontainer/requirements.txt"
+    "create hatch env": "bash .devcontainer/create-hatch-env.sh"
   }
 }
