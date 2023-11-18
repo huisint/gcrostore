@@ -10,10 +10,10 @@ SMTP_FROM = os.environ.get("SMTP_FROM", "")
 """FROM of messages that the app sends."""
 
 # Crostore supported platforms
-platforms: list[crostore.AbstractPlatform] = [
-    crostore.platforms.mercari.Platform(),
-    crostore.platforms.yahoo_auction.Platform(),
-]
+platforms: dict[crostore.AbstractPlatform, str] = {
+    crostore.platforms.mercari.Platform(): "D",
+    crostore.platforms.yahoo_auction.Platform(): "E",
+}
 
 # Google credentials scopes
 scopes = [
