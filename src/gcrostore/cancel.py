@@ -5,7 +5,6 @@ import crostore
 from google.oauth2 import credentials
 
 from gcrostore import api_version, app, config, mail, models
-from gcrostore._to_crostore import datasystem, mailsystem
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +22,10 @@ def execute_cancellation(
     user: models.User, selenium: models.Selenium, google: models.Google
 ) -> None:
     creds = credentials.Credentials.from_authorized_user_info(google.creds)
-    ms = mailsystem.GmailMailSystem(creds)
-    ds = datasystem.SheetsDataSystem(creds, google.sheet_id)
+    ms = crostore.mailsystems.gmail.GmailMailSystem(creds)
+    ds = crostore.datasystems.google_sheets.GoogleSheetsDataSystem(
+        creds, google.sheet_id, config.platforms
+    )
     with selenium.driver() as driver:
         for item in iter_items_to_cancel(ms, ds):
             try:
