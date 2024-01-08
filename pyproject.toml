@@ -37,7 +37,7 @@ test = [
 mypy = [
   "mypy==1.7.0",
   "google-api-python-client-stubs==1.18.0",
-  "types-Markdown==3.5.0.1",
+  "types-Markdown==3.5.0.20240106",
 ]
 uvicorn = [
   "uvicorn[standard]==0.24.0",
