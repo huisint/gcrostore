@@ -40,7 +40,7 @@ test = [
   "pytest-mock==3.14.0",
 ]
 uvicorn = [
-  "uvicorn[standard]==0.24.0",
+  "uvicorn[standard]==0.29.0",
 ]
 
 [tool.hatch.version]
