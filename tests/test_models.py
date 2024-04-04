@@ -5,9 +5,9 @@ import pydantic
 import pytest
 import pytest_mock
 from crostore import config as crostore_config
+from gcrostore import config, models
 from selenium import webdriver
 
-from gcrostore import config, models
 from tests import FixtureRequest
 
 
@@ -81,6 +81,8 @@ def describe_google() -> None:
             "client_secret": fake_client_secret,
             "scopes": config.scopes,
             "expiry": _format_expiry(expiry),
+            "account": "",
+            "universe_domain": "googleapis.com",
         }
         return creds
 

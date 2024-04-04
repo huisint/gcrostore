@@ -3,8 +3,8 @@ import jinja2
 import pydantic
 import pytest
 import pytest_mock
-
 from gcrostore import config, mail, models
+
 from tests import FixtureRequest
 
 
