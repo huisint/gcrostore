@@ -3,7 +3,7 @@ __version__ = "0.1.0"
 # FastAPI
 import fastapi
 
-from . import config
+from . import config as config
 
 app = fastapi.FastAPI(
     title="Crostore",
@@ -13,4 +13,5 @@ app = fastapi.FastAPI(
 
 # Endpoints
 api_version = "v" + __version__.split(".")[0]
-from . import cancel, request
+from . import cancel as cancel  # noqa: E402
+from . import request as request  # noqa: E402

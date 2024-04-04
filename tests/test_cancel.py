@@ -1,6 +1,5 @@
 import crostore
 import pytest_mock
-
 from gcrostore import cancel, config
 
 
